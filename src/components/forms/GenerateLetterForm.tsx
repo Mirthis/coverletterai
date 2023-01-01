@@ -14,8 +14,6 @@ const GenerateLetterForm = () => {
     formState: { errors, isValid, isSubmitting },
   } = useGenerateLetter();
 
-  console.log({ response });
-
   const showForm = !isSubmitting && !response;
 
   return (
