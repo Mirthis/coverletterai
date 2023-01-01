@@ -46,7 +46,7 @@ const GenerateLetterForm = () => {
               className="text-bold rounded-xl bg-red-600 py-2 px-4 text-white hover:bg-red-500"
               disabled={isSubmitting || !isValid}
             >
-              Submit Form
+              Create Cover Letter
             </button>
           </div>
         </form>
