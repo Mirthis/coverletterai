@@ -30,13 +30,13 @@ const GenerateLetterForm = () => {
               generateLabel={false}
             />
             <TextInput
-              placeholder="Full Name"
+              placeholder="Full Name (optional)"
               {...register("fullName")}
               error={errors.fullName}
               generateLabel={false}
             />
             <TextInput
-              placeholder="Company Name"
+              placeholder="Company Name (optional)"
               {...register("companyName")}
               error={errors.companyName}
               generateLabel={false}

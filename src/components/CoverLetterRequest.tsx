@@ -16,13 +16,13 @@ const CoverLetterRequest = ({
             <div className="flex-shrink-0 text-right font-bold">
               Company Name
             </div>
-            <div>Bla bla bla</div>
+            <div>{companyName}</div>
           </>
         )}
         {fullName && (
           <>
             <div className="text-right font-bold">Full name</div>
-            <div>Bla bla bla</div>
+            <div>{fullName}</div>
           </>
         )}
       </div>
