@@ -12,7 +12,12 @@ const CoverLetterResponseLoader = () => {
     };
   }, []);
 
-  return <div>Generating cover letter {text}</div>;
+  return (
+    <div className="my-4">
+      <h2 className="mb-4 text-4xl">Your Cover Letter</h2>
+      <div>Generating cover letter {text}</div>
+    </div>
+  );
 };
 
 export default CoverLetterResponseLoader;
