@@ -1,7 +1,13 @@
 import type { GenereLatterInputs } from "~/hooks/forms/useGenerateLetterForm";
 
 const CoverLetterRequest = ({
-  request: { jobDescription, fullName, companyName },
+  request: {
+    jobDescription,
+    fullName,
+    companyName,
+    applicantDetails,
+    companyDetails,
+  },
 }: {
   request: GenereLatterInputs;
 }) => {
@@ -19,10 +25,22 @@ const CoverLetterRequest = ({
             <div>{companyName}</div>
           </>
         )}
+        {companyDetails && (
+          <>
+            <div className="text-right font-bold">Company Details</div>
+            <div>{companyDetails}</div>
+          </>
+        )}
         {fullName && (
           <>
             <div className="text-right font-bold">Full name</div>
             <div>{fullName}</div>
+          </>
+        )}
+        {applicantDetails && (
+          <>
+            <div className="text-right font-bold">Applicant Details</div>
+            <div>{applicantDetails}</div>
           </>
         )}
       </div>
