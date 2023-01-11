@@ -14,10 +14,11 @@ const GenerateLetterForm = () => {
     getValues,
     response,
     isError,
-    formState: { errors, isValid, isSubmitting },
+    isLoading,
+    formState: { errors, isValid },
   } = useGenerateLetter();
 
-  const showForm = !isSubmitting && !response;
+  const showForm = !isLoading && !response;
   const [showHelp, setShowHelp] = useState(false);
 
   return (
@@ -135,7 +136,7 @@ const GenerateLetterForm = () => {
               <button
                 type="submit"
                 className="text-bold rounded-xl bg-red-600 py-2 px-4 text-white hover:bg-red-500 disabled:bg-gray-600"
-                disabled={isSubmitting || !isValid}
+                disabled={isLoading || !isValid}
               >
                 Create Cover Letter
               </button>
@@ -143,7 +144,7 @@ const GenerateLetterForm = () => {
           </div>
         </form>
       </div>
-      {isSubmitting && <CoverLetterResponseLoader />}
+      {isLoading && <CoverLetterResponseLoader />}
       {!showForm && <CoverLetterRequest request={getValues()} />}
       {response && <CoverLetterResponse response={response.coverLetter} />}
     </div>

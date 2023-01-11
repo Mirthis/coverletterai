@@ -82,9 +82,11 @@ const History: NextPage = () => {
           <h2 className="mb mb-4 text-4xl">
             Cover Letter for {letter.jobTitle}
           </h2>
-          <p>Created on: {dateTimeFormatter.format(letter.createdAt)} </p>
           <div className="grid grid-cols-[100px_1fr] gap-x-4 sm:grid-cols-[200px_1fr]">
-            <p></p>
+            <p>
+              Created on
+              <br /> {dateTimeFormatter.format(letter.createdAt)}{" "}
+            </p>
             <p>{letter.coverLetter}</p>
           </div>
           <CoverLetterRequest request={letter} />

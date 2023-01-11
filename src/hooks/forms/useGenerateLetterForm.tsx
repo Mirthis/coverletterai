@@ -98,6 +98,7 @@ const useGenerateLetter = () => {
     data: response,
     mutateAsync: generateLetter,
     isError,
+    isLoading,
   } = trpc.coverLetters.generate.useMutation();
 
   const onSubmit = handleSubmit(async (data) => {
@@ -110,6 +111,7 @@ const useGenerateLetter = () => {
     formState,
     response,
     isError,
+    isLoading,
     getValues,
   };
 };
