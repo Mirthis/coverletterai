@@ -26,11 +26,11 @@ const useEditProfileForm = () => {
       resolver: zodResolver(editProfileSchema),
     });
 
-  const { data: response, mutateAsync: updateProfile } =
+  const { data: response, mutate: updateProfile } =
     trpc.user.update.useMutation();
 
-  const onSubmit = handleSubmit(async (data) => {
-    await updateProfile(data);
+  const onSubmit = handleSubmit((data) => {
+    updateProfile(data);
   });
 
   return {

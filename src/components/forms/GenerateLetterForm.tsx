@@ -22,7 +22,7 @@ const GenerateLetterForm = () => {
 
   return (
     <div className={`w-full`}>
-      <div className={`${showForm ? "visible" : "hidden"}`}>
+      <div className={`${showForm ? "block" : "hidden"}`}>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col items-center gap-y-4">
             <div className="flex space-x-2 sm:hidden">
@@ -55,7 +55,7 @@ const GenerateLetterForm = () => {
                 error={errors.jobTitle}
                 generateLabel={false}
               />
-              <div className={`${showHelp ? "visible" : "hidden"} sm:visible`}>
+              <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   The <span className="font-bold">job title</span> will be used
                   to make the cover letter more specfic and relevant for the
@@ -70,7 +70,7 @@ const GenerateLetterForm = () => {
                 rows={5}
                 generateLabel={false}
               />
-              <div className={`${showHelp ? "visible" : "hidden"} sm:visible`}>
+              <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   The <span className="font-bold">job description</span> for the
                   job you are applying to. It can simply be a copy paste from a
@@ -84,7 +84,7 @@ const GenerateLetterForm = () => {
                 rows={5}
                 generateLabel={false}
               />
-              <div className={`${showHelp ? "visible" : "hidden"} sm:visible`}>
+              <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   The <span className="font-bold">compnay descriptin</span> will
                   be used to include contexctual information to your cover
@@ -98,7 +98,7 @@ const GenerateLetterForm = () => {
                 rows={5}
                 generateLabel={false}
               />
-              <div className={`${showHelp ? "visible" : "hidden"} sm:visible`}>
+              <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   Details on <span className="font-bold">your experience</span>{" "}
                   will help create a more tailored cover letter. This can
@@ -113,7 +113,7 @@ const GenerateLetterForm = () => {
                 error={errors.fullName}
                 generateLabel={false}
               />
-              <div className={`${showHelp ? "visible" : "hidden"} sm:visible`}>
+              <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   Your <span className="font-bold">full name</span> may be used
                   in the text of the cover letter, but can be left blank.
@@ -125,7 +125,7 @@ const GenerateLetterForm = () => {
                 error={errors.companyName}
                 generateLabel={false}
               />
-              <div className={`${showHelp ? "visible" : "hidden"} sm:visible`}>
+              <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   The <span className="font-bold">company name</span> offering
                   the job may be used in the text of the cover letter, but can
