@@ -31,6 +31,10 @@ export const coverLettersRouter = router({
   generate: publicProcedure
     .input(generateLetterSchema)
     .mutation(async ({ input, ctx }) => {
+      // if (true) {
+      //   throw new TRPCError({ code: "BAD_REQUEST" });
+      // }
+
       const userId = ctx.session?.user ? ctx.session.user.id : null;
       const response = await openai.createCompletion({
         model: "text-davinci-003",

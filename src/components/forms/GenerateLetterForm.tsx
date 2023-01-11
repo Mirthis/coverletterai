@@ -11,20 +11,21 @@ const GenerateLetterForm = () => {
   const {
     register,
     handleSubmit,
-    response,
     getValues,
+    response,
+    isError,
     formState: { errors, isValid, isSubmitting },
   } = useGenerateLetter();
 
   const showForm = !isSubmitting && !response;
-  const [showHelp, setShowHelp] = useState(true);
+  const [showHelp, setShowHelp] = useState(false);
 
   return (
     <div className={`w-full`}>
       <div className={`${showForm ? "visible" : "hidden"}`}>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col items-center gap-y-4">
-            <div className="flex space-x-2">
+            <div className="flex space-x-2 sm:hidden">
               <p className="text-sm">Show help</p>
               <Switch
                 checked={showHelp}
@@ -40,6 +41,13 @@ const GenerateLetterForm = () => {
                 />
               </Switch>
             </div>
+            {isError && (
+              <div className="w-full">
+                <p className="text-sm text-red-500">
+                  Something went wrong, please try again later.
+                </p>
+              </div>
+            )}
             <div className="grid w-full grid-cols-1 gap-y-4 gap-x-4 sm:grid-cols-[2fr_1fr]">
               <TextInput
                 placeholder="Job Title"
@@ -136,8 +144,8 @@ const GenerateLetterForm = () => {
         </form>
       </div>
       {isSubmitting && <CoverLetterResponseLoader />}
-      {response && <CoverLetterResponse response={response.coverLetter} />}
       {!showForm && <CoverLetterRequest request={getValues()} />}
+      {response && <CoverLetterResponse response={response.coverLetter} />}
     </div>
   );
 };

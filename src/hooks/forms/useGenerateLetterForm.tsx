@@ -94,11 +94,14 @@ const useGenerateLetter = () => {
       resolver: zodResolver(generateLetterSchema),
     });
 
-  const { data: response, mutateAsync: generateLetter } =
-    trpc.coverLetters.generate.useMutation();
+  const {
+    data: response,
+    mutateAsync: generateLetter,
+    isError,
+  } = trpc.coverLetters.generate.useMutation();
 
   const onSubmit = handleSubmit(async (data) => {
-    await generateLetter(data);
+    generateLetter(data);
   });
 
   return {
@@ -106,6 +109,7 @@ const useGenerateLetter = () => {
     handleSubmit: onSubmit,
     formState,
     response,
+    isError,
     getValues,
   };
 };
