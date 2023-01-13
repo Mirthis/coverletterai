@@ -1,4 +1,6 @@
 import { zodResolver } from "@hookform/resolvers/zod";
+import { useCallback, useState } from "react";
+import { useGoogleReCaptcha } from "react-google-recaptcha-v3";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 import { trpc } from "~/utils/trpc";
@@ -88,6 +90,20 @@ export const generateLetterSchema = z.object({
 export type GenereLatterInputs = z.infer<typeof generateLetterSchema>;
 
 const useGenerateLetter = () => {
+  const { executeRecaptcha } = useGoogleReCaptcha();
+  const [captchToken, setCaptchToken] = useState<string | null>(null);
+
+  // Create an event handler so you can call the verification on button click event or form submit
+  const handleReCaptchaVerify = useCallback(async () => {
+    if (!executeRecaptcha) {
+      console.log("Execute recaptcha not yet available");
+      return;
+    }
+
+    const token = await executeRecaptcha("yourAction");
+    setCaptchToken(token);
+  }, [executeRecaptcha]);
+
   const { register, handleSubmit, formState, getValues } =
     useForm<GenereLatterInputs>({
       mode: "onTouched",
@@ -102,7 +118,10 @@ const useGenerateLetter = () => {
   } = trpc.coverLetters.generate.useMutation();
 
   const onSubmit = handleSubmit(async (data) => {
-    generateLetter(data);
+    handleReCaptchaVerify();
+    if (captchToken) {
+      generateLetter({ ...data, token: captchToken });
+    }
   });
 
   return {

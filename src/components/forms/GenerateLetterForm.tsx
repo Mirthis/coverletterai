@@ -144,8 +144,8 @@ const GenerateLetterForm = () => {
           </div>
         </form>
       </div>
-      {isLoading && <CoverLetterResponseLoader />}
       {!showForm && <CoverLetterRequest request={getValues()} />}
+      {isLoading && <CoverLetterResponseLoader />}
       {response && <CoverLetterResponse response={response.coverLetter} />}
     </div>
   );

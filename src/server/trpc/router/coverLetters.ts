@@ -5,6 +5,7 @@ import { router, publicProcedure, protectedProcedure } from "../trpc";
 import { Configuration, OpenAIApi } from "openai";
 import { env } from "~/env/server.mjs";
 import { z } from "zod";
+import { TRPCError } from "@trpc/server";
 
 const configuration = new Configuration({
   apiKey: env.OPENAI_API_KEY,
@@ -29,11 +30,36 @@ const generatePrompt = (input: GenereLatterInputs) => {
 
 export const coverLettersRouter = router({
   generate: publicProcedure
-    .input(generateLetterSchema)
+    .input(generateLetterSchema.extend({ token: z.string() }))
     .mutation(async ({ input, ctx }) => {
-      // if (true) {
-      //   throw new TRPCError({ code: "BAD_REQUEST" });
-      // }
+      const isHuman = await fetch(
+        `https://www.google.com/recaptcha/api/siteverify`,
+        {
+          method: "post",
+          headers: {
+            Accept: "application/json",
+            "Content-Type": "application/x-www-form-urlencoded; charset=utf-8",
+          },
+          body: `secret=${env.RECAPTCHA_SECRET_KEY}&response=${input.token}`,
+        }
+      )
+        .then((res) => res.json())
+        .then((json) => json.success)
+        .catch(() => {
+          throw new TRPCError({
+            message: "Error while validating captcha",
+            code: "BAD_REQUEST",
+          });
+        });
+
+      if (!isHuman) {
+        throw new TRPCError({
+          message: "Captcha validation failed",
+          code: "BAD_REQUEST",
+        });
+      }
+
+      console.log(isHuman);
 
       const userId = ctx.session?.user ? ctx.session.user.id : null;
       const response = await openai.createCompletion({
@@ -47,10 +73,15 @@ export const coverLettersRouter = router({
       });
       // TODO: Manage empty responses
       const responseText = response.data.choices[0]?.text || "";
-
-      // const response = "Dummy response";
+      // const responseText = "Dummy response";
+      const data = {
+        ...input,
+        token: undefined,
+        coverLetter: responseText,
+        userId,
+      };
       const coverLetter = await ctx.prisma.coverLetter.create({
-        data: { ...input, coverLetter: responseText, userId },
+        data,
       });
       return coverLetter;
     }),
