@@ -1,6 +1,8 @@
 import { Switch } from "@headlessui/react";
+import { useSession } from "next-auth/react";
 import { useState } from "react";
 import useGenerateLetter from "~/hooks/forms/useGenerateLetterForm";
+import { trpc } from "~/utils/trpc";
 import CoverLetterRequest from "../CoverLetterRequest";
 import CoverLetterResponse from "../CoverLetterResponse";
 import CoverLetterResponseLoader from "../CoverLetterResponseLoader";
@@ -12,6 +14,7 @@ const GenerateLetterForm = () => {
     register,
     handleSubmit,
     getValues,
+    setValue,
     response,
     isError,
     isLoading,
@@ -20,28 +23,66 @@ const GenerateLetterForm = () => {
 
   const showForm = !isLoading && !response;
   const [showHelp, setShowHelp] = useState(false);
+  const [useProfileData, setUseProfileData] = useState(true);
+  const { data: session } = useSession();
+
+  const { data: profile } = trpc.user.get.useQuery(undefined, {
+    enabled: !!session,
+  });
+
+  const handleUseProfileData = () => {
+    if (useProfileData) {
+      setValue("applicantDetails", "");
+    } else {
+      setValue("applicantDetails", profile?.bio || "");
+    }
+    setUseProfileData(!useProfileData);
+  };
 
   return (
     <div className={`w-full`}>
       <div className={`${showForm ? "block" : "hidden"}`}>
         <form onSubmit={handleSubmit}>
           <div className="flex flex-col items-center gap-y-4">
-            <div className="flex space-x-2 sm:hidden">
-              <p className="text-sm">Show help</p>
-              <Switch
-                checked={showHelp}
-                onChange={setShowHelp}
-                className={`${showHelp ? "bg-blue-500" : "bg-blue-600"}
+            <div className="jus flex items-center justify-center gap-x-2">
+              <div className="flex space-x-2 sm:hidden">
+                <p className="text-sm">Help</p>
+                <Switch
+                  checked={showHelp}
+                  onChange={setShowHelp}
+                  className={`${showHelp ? "bg-blue-500" : "bg-blue-600"}
           relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
-              >
-                <span className="sr-only">Use setting</span>
-                <span
-                  aria-hidden="true"
-                  className={`${showHelp ? "translate-x-4" : "translate-x-0"}
+                >
+                  <span
+                    aria-hidden="true"
+                    className={`${showHelp ? "translate-x-4" : "translate-x-0"}
             pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
-                />
-              </Switch>
+                  />
+                </Switch>
+              </div>
+              {profile && (
+                <div className="flex space-x-2 p-2">
+                  <p className="text-sm">Use profile data</p>
+                  <Switch
+                    checked={useProfileData}
+                    onChange={handleUseProfileData}
+                    className={`${
+                      useProfileData ? "bg-blue-500" : "bg-blue-600"
+                    }
+          relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2  focus-visible:ring-white focus-visible:ring-opacity-75`}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className={`${
+                        useProfileData ? "translate-x-4" : "translate-x-0"
+                      }
+            pointer-events-none inline-block h-[20px] w-[20px] transform rounded-full bg-white shadow-lg ring-0 transition duration-200 ease-in-out`}
+                    />
+                  </Switch>
+                </div>
+              )}
             </div>
+
             {isError && (
               <div className="w-full">
                 <p className="text-sm text-red-500">
@@ -92,13 +133,16 @@ const GenerateLetterForm = () => {
                   letter.
                 </p>
               </div>
-              <TextAreaInput
-                placeholder="About your experience (optional)"
-                {...register("applicantDetails")}
-                error={errors.applicantDetails}
-                rows={5}
-                generateLabel={false}
-              />
+              <div>
+                <TextAreaInput
+                  placeholder="About your experience (optional)"
+                  {...register("applicantDetails")}
+                  error={errors.applicantDetails}
+                  rows={5}
+                  defaultValue={useProfileData.valueOf().toString()}
+                  generateLabel={false}
+                />
+              </div>
               <div className={`${showHelp ? "block" : "hidden"} sm:block`}>
                 <p className="text-sm">
                   Details on <span className="font-bold">your experience</span>{" "}

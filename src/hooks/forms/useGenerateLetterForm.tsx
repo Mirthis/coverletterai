@@ -104,7 +104,7 @@ const useGenerateLetter = () => {
     setCaptchToken(token);
   }, [executeRecaptcha]);
 
-  const { register, handleSubmit, formState, getValues } =
+  const { register, handleSubmit, formState, getValues, setValue } =
     useForm<GenereLatterInputs>({
       mode: "onTouched",
       resolver: zodResolver(generateLetterSchema),
@@ -131,6 +131,7 @@ const useGenerateLetter = () => {
     response,
     isError,
     isLoading,
+    setValue,
     getValues,
   };
 };
