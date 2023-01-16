@@ -13,7 +13,7 @@ const AccountWidget = () => {
 
   return (
     <>
-      {sessionStatus === "unauthenticated" && router.pathname !== "/" && (
+      {sessionStatus === "unauthenticated" && (
         <button
           className="rounded-xl font-bold text-red-600  no-underline transition hover:bg-gray-300"
           onClick={() => signIn()}
@@ -31,7 +31,7 @@ const AccountWidget = () => {
                     src={session.user?.image}
                     width="40"
                     height="40"
-                    className="rounded-full"
+                    className="h-10 w-10 rounded-full"
                     alt="avatar"
                   />
                 ) : (

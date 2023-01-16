@@ -78,19 +78,8 @@ const Navbar = () => {
     >
       {/* Desktop version */}
       <div className="mx-auto flex h-full max-w-[1240px] items-center justify-between px-2 2xl:px-16">
-        {/* Logo */}
-        {/* <Link href="/">
-          <a>
-            <Image
-              src="/assets/navLogo.png"
-              alt="logo"
-              width="71"
-              height="50"
-            />
-          </a>
-        </Link> */}
-        <div className="flex w-full flex-row  items-center justify-between">
-          <ul className={`hidden flex-grow md:flex ${linkColor}`}>
+        <div className="flex w-full flex-row items-center justify-between">
+          <ul className={`hidden flex-grow md:flex ${linkColor} flex-1`}>
             {navBarLinks.map((l) => (
               <Link key={`desktop-menu-${l.label}`} href={l.url}>
                 <li className="ml-10 border-slate-400 text-sm uppercase hover:border-b">
@@ -112,7 +101,14 @@ const Navbar = () => {
           <div onClick={showNavBar} className="md:hidden">
             <AiOutlineMenu size={25} />
           </div>
-          <AccountWidget />
+          <Link href="/" onClick={hideNavBar} className="md:flex-1">
+            <p className="font-extrabold">
+              <span className=" text-red-500">Cover Letters</span> AI
+            </p>
+          </Link>
+          <div>
+            <AccountWidget />
+          </div>
         </div>
       </div>
 
@@ -128,24 +124,19 @@ const Navbar = () => {
           }
         >
           <div>
-            <div className="flex w-full items-center justify-between">
+            <div className="w-full  items-center justify-between">
               {/* Logo */}
-              {/* <Link href="/" passHref>
-                <a>
-                  <Image
-                    src="/assets/navLogo.png"
-                    alt="logo"
-                    width="64"
-                    height="45"
-                  />
-                </a>
-              </Link> */}
-              <div
+              <Link href="/" onClick={hideNavBar}>
+                <p className="font-extrabold">
+                  <span className=" text-red-500">Cover Letters</span> AI
+                </p>
+              </Link>
+              <button
                 onClick={hideNavBar}
-                className="cursor-pointer rounded-full p-3 "
+                className="cursor-pointer rounded-full border border-gray-400 p-1 hover:bg-gray-200"
               >
-                <AiOutlineClose />
-              </div>
+                <AiOutlineClose className="rounded-full font-bold" />
+              </button>
             </div>
           </div>
           <div className="flex flex-col py-4">
