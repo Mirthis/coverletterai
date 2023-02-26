@@ -98,15 +98,15 @@ const Navbar = () => {
           </ul>
 
           {/* Burger icon, show on small displays */}
-          <div onClick={showNavBar} className="md:hidden">
+          <div onClick={showNavBar} className="flex-1 md:hidden">
             <AiOutlineMenu size={25} />
           </div>
-          <Link href="/" onClick={hideNavBar} className="md:flex-1">
-            <p className="font-extrabold">
+          <Link href="/" onClick={hideNavBar}>
+            <p className="w-full  text-center font-extrabold">
               <span className=" text-red-500">Cover Letters</span> AI
             </p>
           </Link>
-          <div>
+          <div className="flex-1 text-right">
             <AccountWidget />
           </div>
         </div>
@@ -124,7 +124,7 @@ const Navbar = () => {
           }
         >
           <div>
-            <div className="w-full  items-center justify-between">
+            <div className="flex w-full  items-center justify-between">
               {/* Logo */}
               <Link href="/" onClick={hideNavBar}>
                 <p className="font-extrabold">
@@ -133,9 +133,9 @@ const Navbar = () => {
               </Link>
               <button
                 onClick={hideNavBar}
-                className="cursor-pointer rounded-full border border-gray-400 p-1 hover:bg-gray-200"
+                className="hover:bg-gray-20  cursor-pointer border-b-2 border-red-500"
               >
-                <AiOutlineClose className="rounded-full font-bold" />
+                <AiOutlineClose className="rounded-full  font-bold text-red-500" />
               </button>
             </div>
           </div>

@@ -27,7 +27,11 @@ const ProfilePage: NextPage = () => {
   return (
     <div>
       <DeleteProfileModal open={deleteModalOpen} setOpen={setDeleteModalOpen} />
-      <EditProfileModal open={editModalOpen} setOpen={setEditModalOpen} />
+      <EditProfileModal
+        open={editModalOpen}
+        setOpen={setEditModalOpen}
+        user={user}
+      />
       <div className="flex justify-between space-x-4 sm:justify-start">
         <PageTitle text={"Your profile"} />
         <button

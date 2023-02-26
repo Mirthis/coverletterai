@@ -139,7 +139,9 @@ const GenerateLetterForm = () => {
                   {...register("applicantDetails")}
                   error={errors.applicantDetails}
                   rows={5}
-                  defaultValue={useProfileData.valueOf().toString()}
+                  defaultValue={
+                    useProfileData && profile?.bio ? profile?.bio : ""
+                  }
                   generateLabel={false}
                 />
               </div>
@@ -179,7 +181,7 @@ const GenerateLetterForm = () => {
               </div>
               <button
                 type="submit"
-                className="text-bold rounded-xl bg-red-600 py-2 px-4 text-white hover:bg-red-500 disabled:bg-gray-600"
+                className="text-bold rounded-xl bg-red-600 py-2 px-4 text-white enabled:hover:bg-red-500 disabled:bg-gray-600"
                 disabled={isLoading || !isValid}
               >
                 Create Cover Letter

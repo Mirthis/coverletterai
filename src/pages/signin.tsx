@@ -1,7 +1,7 @@
 import type {} from "next";
 import type { Provider } from "next-auth/providers";
 import { getProviders, signIn } from "next-auth/react";
-import { FaGoogle, FaTwitter } from "react-icons/fa";
+import { FaGoogle, FaTwitter, FaLinkedin } from "react-icons/fa";
 
 const SigninPage = ({ providers }: { providers: Provider }) => {
   const signInWrapper = (providerId: string) => {
@@ -35,6 +35,19 @@ const SigninPage = ({ providers }: { providers: Provider }) => {
                   >
                     <FaTwitter />
                     Sign in with Twitter
+                  </button>
+                </div>
+              );
+            }
+            if (provider.id === "linkedin") {
+              return (
+                <div key="linkedin">
+                  <button
+                    onClick={() => signInWrapper(provider.id)}
+                    className="flex items-center gap-x-4 rounded-xl bg-blue-700 px-4 py-4 text-xl font-bold text-white"
+                  >
+                    <FaLinkedin />
+                    Sign in with LinkedIn
                   </button>
                 </div>
               );

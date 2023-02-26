@@ -6,13 +6,16 @@ import Spinner from "../ui/Spinner";
 import { BiEditAlt } from "react-icons/bi";
 import useEditProfileForm from "~/hooks/forms/useEditProfileForm";
 import TextAreaInput from "../forms/TextAreaInput";
+import type { User } from "@prisma/client";
 
 const EditProfileModal = ({
   open,
   setOpen,
+  user,
 }: {
   open: boolean;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
+  user: User | undefined | null;
 }) => {
   const utils = trpc.useContext();
   const {
@@ -57,6 +60,7 @@ const EditProfileModal = ({
                   {...register("bio")}
                   error={errors.bio}
                   generateLabel={false}
+                  defaultValue={user?.bio || ""}
                   rows={5}
                 />
                 <div className="mt-2">
