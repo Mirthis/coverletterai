@@ -1,6 +1,5 @@
 import NextAuth, { type NextAuthOptions } from "next-auth";
 // import DiscordProvider from "next-auth/providers/discord";
-import GoogleProvider from "next-auth/providers/google";
 import TwitterProvider from "next-auth/providers/twitter";
 import LinkedInProvider from "next-auth/providers/linkedin";
 import { PrismaAdapter } from "@next-auth/prisma-adapter";
@@ -37,10 +36,10 @@ export const authOptions: NextAuthOptions = {
     signIn: "/signin",
   },
   providers: [
-    GoogleProvider({
-      clientId: env.GOOGLE_CLIENT_ID,
-      clientSecret: env.GOOGLE_CLIENT_SECRET,
-    }),
+    // GoogleProvider({
+    //   clientId: env.GOOGLE_CLIENT_ID,
+    //   clientSecret: env.GOOGLE_CLIENT_SECRET,
+    // }),
     TwitterProvider({
       clientId: env.TWITTER_CLIENT_ID,
       clientSecret: env.TWITTER_CLIENT_SECRET,
