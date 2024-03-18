@@ -60,6 +60,7 @@ export const coverLettersRouter = router({
       }
 
       const userId = ctx.session?.user ? ctx.session.user.id : null;
+
       const response = await openai.createCompletion({
         model: "text-davinci-003",
         prompt: generatePrompt(input),
